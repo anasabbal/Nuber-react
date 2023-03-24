@@ -2,6 +2,7 @@ import ApiRoutes from "../core/ApiRoutes";
 import httpCommon from "../core/http-common";
 import CustomerDetails from "../shared";
 import CustomerCommand from "../types/customer";
+import RequestDriver from "../types/customer";
 
 
 
@@ -15,7 +16,7 @@ const findAllByDeletedFalse =() => {
 const sendRating = () => {
 
 } 
-const sendRequestDriver = () => {
+const sendRequestDriver = (payload: RequestDriver) => {
 
 } 
 const findById = (customerId: string) => {

@@ -3,26 +3,30 @@ import { ChangeEvent, useState } from "react";
 import CustomerService from "../service/customer-service";
 import CustomerDetails from "../shared";
 import CustomerCommand from "../types/customer";
-
-
+import RequestDriver from "../types/request-driver";
 
 
 
 
 const CustomerComponents: React.FC = () => {
 
-    const initCustomer = {
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: ""
-    }
+
     const initCustomerDetails = {
         customer: null,
         driverLocationDto: null,
         bankAccount: null,
         walletDetails: null
-    }
+    };
+    const initRequestDriver = {
+        customerId: "",
+        driverId: ""
+    };
+    let initCustomer = {
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: ""
+    };
 
     const [customer, setCustomer] = useState<CustomerCommand>(initCustomer);
     const [create, setCreate] = useState<Boolean>(false);
@@ -30,7 +34,9 @@ const CustomerComponents: React.FC = () => {
     const [customerDetails, setCustomerDetails] = useState<CustomerDetails>(initCustomerDetails);
     const [driverAvailable, setDriverAvailable] = useState();
     const [update, setUpdate] = useState<Boolean>(false);
- 
+    const [request, setRequest] = useState<RequestDriver>(initRequestDriver);
+
+
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setCustomer({ ...customer, [name]: value });
@@ -45,15 +51,15 @@ const CustomerComponents: React.FC = () => {
             email: customer?.email,
             password: customer?.password
         };
-        CustomerService.create(data)
-            .then((response : any) => {
-                console.log(response.data);
+        CustomerService.create(data as CustomerCommand)
+            .then((res : any) => {
+                console.log(res.data)
                 setCustomer({
-                    firstName: response.data.firstName,
-                    lastName: response.data.lastName,
-                    email: response.data.email,
-                    password: response.data.password
-                });
+                    email: res.data.email,
+                    firstName: res.data.firstName,
+                    lastName: res.data.lastName,
+                    password: res.data.password,
+                })
                 console.log(customer);
                 setCreate(true);
             }).catch((e: Error) => {
@@ -108,7 +114,9 @@ const CustomerComponents: React.FC = () => {
             })
     }
     return (
-        <div></div>
+        <div>
+
+        </div>
     );
 
 }
