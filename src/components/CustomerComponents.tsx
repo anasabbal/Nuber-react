@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from "react";
 import CustomerService from "../service/customer-service";
 import CustomerDetails from "../shared";
 import CustomerCommand from "../types/customer";
+import DriverAvailableReponse from "../types/driver-available";
 import RequestDriver from "../types/request-driver";
 
 
@@ -27,12 +28,19 @@ const CustomerComponents: React.FC = () => {
         email: "",
         password: ""
     };
-
+    let driverAvailableInit = {
+        id: "",
+        firstName: "",
+        lastName: "",
+        driverStatus : "",
+        notifications: [],
+        bankAccountId: ""
+    }
     const [customer, setCustomer] = useState<CustomerCommand>(initCustomer);
     const [create, setCreate] = useState<Boolean>(false);
     const [find, setFind] = useState<Boolean>(false);
     const [customerDetails, setCustomerDetails] = useState<CustomerDetails>(initCustomerDetails);
-    const [driverAvailable, setDriverAvailable] = useState();
+    const [driverAvailable, setDriverAvailable] = useState<DriverAvailableReponse>(driverAvailableInit);
     const [update, setUpdate] = useState<Boolean>(false);
     const [request, setRequest] = useState<RequestDriver>(initRequestDriver);
 
@@ -42,6 +50,10 @@ const CustomerComponents: React.FC = () => {
         setCustomer({ ...customer, [name]: value });
         setCreate({...create, [name]: value});
         setCreate({...find, [name]: value});
+        setCustomerDetails({...customerDetails, [name]: value});
+        setDriverAvailable({...driverAvailable, [name]: value});
+        setUpdate({...update, [name]: value});
+        setRequest({...request, [name]: value});
     };
 
     const createCustomer = () => {

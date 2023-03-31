@@ -1,4 +1,5 @@
 import {useState} from "react";
+import NavBar from "./NavBar";
 
 
 const HomeComponents: React.FC = () => {
